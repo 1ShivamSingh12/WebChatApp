@@ -1,0 +1,152 @@
+@mixin flex($ai, $jc) {
+  display: flex;
+  align-items: $ai;
+  justify-content: $jc;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  background-image: url("../../../assets/wallpaperflare.com_wallpaper\ \(1\).jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  // background-color: #B9D7EA;
+  // border-radius: 20px;
+
+  button {
+    cursor: pointer;
+  }
+
+  .main-container {
+    padding: 10px 10px;
+    @include flex(center, space-between);
+    border-radius: 10px;
+
+    .title {
+      margin-left: 10px;
+      @include flex(center, flex-start);
+      h1 {
+        color: white;
+        margin: 2px;
+      }
+      img {
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 20px;
+    height: 92%;
+
+    .leftside {
+      overflow-y: scroll;
+      height: 100%;
+      // border-right: 1px solid black;
+      .block {
+        cursor: pointer;
+        background-color: white;
+        border-radius: 10px;
+        // border: 1px solid black;
+        // display: flex;
+        padding: 15px;
+        margin: 10px 6px 6px 0px;
+        .img {
+          img {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+          }
+        }
+
+        .details {
+          .list {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+
+      .groupMain {
+        padding: 20px;
+        border-radius: 10px;
+        .groupContainer {
+          .groupName {
+            display: flex;
+            p {
+              color: white;
+            }
+            input {
+              height: 15px;
+            }
+          }
+          button {
+            &:disabled {
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+      .heading {
+        h1 {
+          color: white;
+          margin-bottom: 10px;
+        }
+      }
+
+      .search {
+        position: relative;
+        mat-icon {
+          position: absolute;
+          top: 6px;
+          right: 14px;
+        }
+        input {
+          width: 97%;
+          margin-bottom: 20px;
+          height: 28px;
+          border-radius: 5px;
+          background-color: #f7fbfc;
+        }
+      }
+      .group {
+        display: flex;
+        justify-content: space-between;
+
+        .userDetail {
+          display: flex;
+          p {
+            color: white;
+            font-size: 20px;
+            margin: 5px;
+          }
+        }
+
+        .groupDetail {
+          display: flex;
+          p {
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 20px;
+          }
+        }
+        mat-icon {
+          color: white;
+          border: 1px solid #efe1e1;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

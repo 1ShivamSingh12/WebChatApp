@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-container">
+        <div class="title">
+          <img src="assets/images.jpeg" width="50px" />
+          <h1>ChatApp</h1>
+        </div>
+        <mat-icon>menu</mat-icon>
+      </div>
+      <div class="container">
+        <div class="leftside">
+          <div class="heading">
+            <h1>Messages</h1>
+          </div>
+          <div class="search">
+            <input placeholder="Serach" />
+            <mat-icon>search</mat-icon>
+          </div>
+          <div class="group" >
+            <div class="userDetail">
+              <mat-icon>person</mat-icon>
+              <p>{{loggedIn.username}}</p>
+            </div>
+            <div class="groupDetail" (click)="groupDetail()">
+              <mat-icon>group</mat-icon>
+              <p>Group</p>
+            </div>
+          </div>
+
+          <div *ngIf="groupDisplay" class="groupMain">
+            <div class="groupContainer">
+              <div class="groupName">
+                <p>Name:</p>
+                <input [(ngModel)]="name" />
+              </div>
+              <div class="groupName">
+                <p>Add Group:</p>
+                <input [(ngModel)]="room"  maxlength="16"/>
+              </div>
+              <button class="join" (click)="joinRoom()" [disabled]="!name || !room">Join</button>
+            </div>
+          </div>
+          <!-- all the users pushed later  -->
+          <div class="block" *ngFor="let data of user" (click)="show(data)">
+            <div class="img">
+              <img src="assets/photo-1500648767791-00dcc994a43e.jpeg" />
+            </div>
+            <div class="details">
+              <div class="list">
+                <h4>{{ data.username}}</h4>
+                <p>Active</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rightside">
+          <app-user1 *ngIf="display" [mydetail]="dataSelected" [Message]="chatData" [userDetail] = "selectedUser" [room]="currentRoom"></app-user1>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

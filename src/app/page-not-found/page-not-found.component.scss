@@ -1,0 +1,13 @@
+.err{
+  display: flex;
+  justify-content: center;
+
+  .err-block{
+    h1{
+      color: red;
+    }
+    p{
+      cursor: pointer;
+    }
+  }
+}

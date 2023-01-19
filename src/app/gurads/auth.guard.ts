@@ -13,11 +13,12 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let Login = localStorage.getItem('login')
     if(this.chatService.details?.valid){
-      console.log("the guard is....running.");
+      
       return true
     }
     this.route.navigate(['']);
     localStorage.clear()
+    sessionStorage.clear()
     return false
   }
 

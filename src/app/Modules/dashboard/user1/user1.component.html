@@ -15,6 +15,7 @@
     <div class="text">
       <div class="textspace">
         <input  class="message" placeholder="Write a message" [(ngModel)]="inputMessage" (keyup)="$event.keyCode == 13 && message(msg)"/>
+        <span> </span>
         <div class="send">
           <mat-icon (click)="message(msg)">send</mat-icon>
         </div>
@@ -32,10 +33,10 @@
               [content]="item.message"
               [limit]="300"
               [completeWords]="true"
-              *ngIf="item.message?.length>20"
+              *ngIf="item.message?.length>50"
           ></app-read-more>
 
-          <span *ngIf="item.message?.length<=20">
+          <span *ngIf="item.message?.length<=50">
             {{item.message}}
           </span>
         </div>

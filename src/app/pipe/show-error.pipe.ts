@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { REGEX } from '../constant/validation';
 
 @Pipe({
   name: 'showError',
@@ -16,12 +17,20 @@ export class ShowErrorPipe implements PipeTransform {
       // console.log('lll');
 
       const error = form.get(control)?.errors
+      // console.log(error,'errr');
+
 
       if(error?.hasOwnProperty("required")){
         return `${label} is required`
-      }else if(error?.hasOwnProperty("pattern")){
+      }
+      else if(error?.hasOwnProperty("minlength")){
+        return `${label} must be of 3 character`;
+      }else if(error?.hasOwnProperty("maxlength")){
+        return `${label} must be of 10 character `;
+      }
+      else if(error?.hasOwnProperty("pattern")){
         if(control === 'password' || control === 'confirm_password'){
-          return `${label} must be of 8 character and must contain one alphanumeric and one special character`
+          return `${label} must be 3 character and must not contain spaces`
         }else{
           let pattern = error.pattern.requiredPattern;
           // console.log(pattern,'ooooo');
@@ -35,11 +44,12 @@ export class ShowErrorPipe implements PipeTransform {
 
   PATTERN_ERRORS(pattern:any , label:string){
 
-    // if(pattern == REGEX.email){
-    //   return `${label} is invalid`
-    // }else if (pattern == REGEX.name){
-    //   return `${label} is invalid`
-    // }
+    if(pattern == REGEX.name){
+      return `${label} msut not start with space`
+    }
+    else if (pattern == REGEX.password){
+      return `${label} is invalid`
+    }
     return ''
   }
 }

@@ -21,10 +21,10 @@
           <div class="heading">
             <h1>Messages</h1>
           </div>
-          <div class="search">
+          <!-- <div class="search">
             <input placeholder="Serach" />
             <mat-icon>search</mat-icon>
-          </div>
+          </div> -->
           <div class="group" >
             <div class="userDetail">
               <mat-icon>person</mat-icon>
@@ -32,7 +32,7 @@
             </div>
             <div class="groupDetail" (click)="groupDetail()">
               <mat-icon>group</mat-icon>
-              <p>Group</p>
+              <p>Add Group</p>
             </div>
           </div>
 
@@ -43,13 +43,24 @@
                 <input [(ngModel)]="name" />
               </div>
               <div class="groupName">
-                <p>Add Group:</p>
+                <p>Group:</p>
                 <input [(ngModel)]="room"  maxlength="16"/>
               </div>
               <button class="join" (click)="joinRoom()" [disabled]="!name || !room">Join</button>
             </div>
           </div>
           <!-- all the users pushed later  -->
+          <div class="block" *ngFor="let data of groupArr" (click)="show(data)">
+            <div class="img">
+              <img src="assets/photo-1500648767791-00dcc994a43e.jpeg" />
+            </div>
+            <div class="details">
+              <div class="list">
+                <h4>{{ data.username}}</h4>
+                <p>Active</p>
+              </div>
+            </div>
+          </div>
           <div class="block" *ngFor="let data of user" (click)="show(data)">
             <div class="img">
               <img src="assets/photo-1500648767791-00dcc994a43e.jpeg" />

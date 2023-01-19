@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   messageArray: Array<{ message: String }> = [];
   groupDisplay = false
   user_list = CHAT_USERS_DATA
+  groupArr :any
   room:any
   totalusers : any = []
   msgArr :any = []
@@ -38,22 +39,19 @@ export class DashboardComponent implements OnInit,AfterViewInit {
       console.log(this.messageArray,'ui');
 
     });
-
   }
   ngOnInit(): void {
     this.loggedIn = JSON.parse(<any>sessionStorage.getItem('user'))
     this.chatservice.socket.emit('loggedIn' ,{...this.loggedIn , type:'private'})
-    this.chatservice.socket.on('UsersLogged', (data:any)=>{
-      console.log(data);
+    this.chatservice.socket.on('UsersLogged', (data:any , data1 :any)=>{
+      console.log(data1,'qejvqwhvjhqwh');
 
+      this.groupArr = data1
       data = data.filter((item:any)=>
         item.username != JSON.parse(<any>sessionStorage.getItem('user')).username
       )
-
       this.user =  data
       // localStorage.removeItem(this.loggedIn.username)
-
-
     })
     this.chatservice.socket.on('update_session_storage', async (data: any) => {
 
@@ -126,19 +124,11 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   groupName:any
 
   joinRoom(){
-
-
-
     let group_Data = {
       username : this.room,
       user_id : this.name,
       type:'group',
     }
-
-
-    console.log(this.chatservice.details.username);
-    console.log(this.name);
-
     if(this.chatservice.details.username == this.name && this.room.trim() != ''){
       this.chatservice.socket.emit('loggedIn',group_Data)
     }else if(this.chatservice.details.username != this.name){

@@ -21,7 +21,7 @@
 
           <div class="input-box">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput placeholder="Password" formControlName="password" required />
+              <input (keydown.space)="$event.preventDefault()" matInput placeholder="Password" formControlName="password" required />
             </mat-form-field>
           </div>
           <app-field-error  [error]="loginForm | showError: 'password': 'Password'"></app-field-error>

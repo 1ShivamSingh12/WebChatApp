@@ -23,9 +23,6 @@ export class ChatServiceService {
 
   connection(){
     this.socket = io(environment.SOCKET_ENDPOINT)
-    //   ththis.socket.on('ID', (data:string)=>{
-    // is.userID = data
-    // })
   }
 
 
@@ -36,6 +33,20 @@ export class ChatServiceService {
   onlineUser(data:any){
     this.socket.emit('online',data)
   }
+
+  exist_group(){
+    let observable = new Observable<{}>(observer => {
+      this.socket.on('group_exist', (data:any) => {
+        console.log(data,'exist');
+        observer.next(data);
+
+      });
+      return () => { this.socket.disconnect(); }
+    });
+
+    return observable;
+  }
+
 
 
   getOnlineUser(){
@@ -79,6 +90,8 @@ export class ChatServiceService {
     this.socket.emit('join' ,data)
   }
 
+
+
   newUserJoined()
   {
       let observable = new Observable<{user:String, message:String , userID  :String}>(observer=>{
@@ -98,6 +111,26 @@ export class ChatServiceService {
     console.log(data,'sercice');
 
     this.socket.emit('chat',data , my_detail)
+  }
+
+  leaveGroup(data:any){
+    console.log(data,'ervj');
+    this.socket.emit('leave',data)
+
+  }
+
+  userLeft()
+  {
+      let observable = new Observable<{user:String, message:String}>(observer=>{
+          this.socket.on('User_left', (data:any)=>{
+            console.log(data , 'userleft');
+
+            observer.next(data);
+          });
+          return () => {this.socket.disconnect();}
+      });
+
+      return observable;
   }
 
 }

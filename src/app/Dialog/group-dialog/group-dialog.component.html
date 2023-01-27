@@ -1,0 +1,14 @@
+
+  <h1 mat-dialog-title>Group Name</h1>
+
+  <div mat-dialog-actions>
+      <div class="dialog">
+         <div class="input-box" >
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput placeholder="Name" [(ngModel)]="groupName" />
+            </mat-form-field>
+          </div>
+      </div>
+      <button mat-raised-button color="accent" (click)="close()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="!groupName">Join</button>
+  </div>

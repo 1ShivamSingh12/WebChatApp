@@ -39,7 +39,7 @@
 
   .container {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 17% 83%;
     margin: 20px;
     height: 92%;
 
@@ -48,26 +48,36 @@
       height: 100%;
       // border-right: 1px solid black;
       .block {
+        display: flex;
+        justify-content: space-between;
         cursor: pointer;
         background-color: white;
         border-radius: 10px;
-        // border: 1px solid black;
-        // display: flex;
         padding: 15px;
         margin: 10px 6px 6px 0px;
+        word-break: break-word;
         .img {
+          display: flex;
           img {
             position: relative;
             width: 45px;
             height: 45px;
             border-radius: 50%;
           }
+          h4{
+            margin: 10px 8px 12px;
+
+          }
         }
 
         .details {
-          .list {
-            display: flex;
-            justify-content: space-between;
+          mat-icon{
+            margin: 11px 0px 12px;
+            color: greenyellow;
+            background-color: greenyellow;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
           }
         }
       }
@@ -83,6 +93,7 @@
             }
             input {
               height: 15px;
+              width: 77%;
             }
           }
           button {
@@ -132,7 +143,7 @@
           p {
             color: white;
             cursor: pointer;
-            margin: 5px;
+            margin-top: 5px;
             font-size: 20px;
           }
         }
@@ -149,5 +160,43 @@
         }
       }
     }
+    .rightside{
+
+    }
   }
 }
+
+
+@media only screen and (max-width: 1050px) {
+  .main{
+    .container{
+      display: grid;
+      grid-template-columns: 45% 55%;
+    }
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .main{
+    .container{
+      .leftside{
+        .group{
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .main{
+    .container{
+      grid-template-columns: auto;
+      .rightside.off{
+        display: none;
+      }
+    }
+  }
+}
+

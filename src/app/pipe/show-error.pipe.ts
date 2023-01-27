@@ -19,7 +19,6 @@ export class ShowErrorPipe implements PipeTransform {
       const error = form.get(control)?.errors
       // console.log(error,'errr');
 
-
       if(error?.hasOwnProperty("required")){
         return `${label} is required`
       }
@@ -33,7 +32,6 @@ export class ShowErrorPipe implements PipeTransform {
           return `${label} must be 3 character and must not contain spaces`
         }else{
           let pattern = error.pattern.requiredPattern;
-          // console.log(pattern,'ooooo');
           return this.PATTERN_ERRORS(pattern, label);
         }
       }
@@ -45,7 +43,7 @@ export class ShowErrorPipe implements PipeTransform {
   PATTERN_ERRORS(pattern:any , label:string){
 
     if(pattern == REGEX.name){
-      return `${label} msut not start with space`
+      return `${label} is invalid`
     }
     else if (pattern == REGEX.password){
       return `${label} is invalid`

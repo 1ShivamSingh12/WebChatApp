@@ -1,13 +1,16 @@
 <div class="main">
+
   <div class="container">
     <div class="list">
       <div class="details">
+        <mat-icon (click)="toggle()">arrow_back</mat-icon>
         <img src="assets/photo-1500648767791-00dcc994a43e.jpeg" width="40px" />
         <p>{{userDetail?.username}}</p>
       </div>
       <div class="icon">
         <mat-icon>more</mat-icon>
         <mat-icon>search</mat-icon>
+        <button (click)="leave()">Leave</button>
         <!-- <button >leave Group</button> -->
       </div>
     </div>

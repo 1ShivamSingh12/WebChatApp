@@ -1,9 +1,16 @@
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}
+
 .main {
-  height: calc(90vh - 41px);
+  height: calc(96vh - 41px);
   // background-color: #f5f3f4;
   background-image: url("../../../../assets/8c98994518b575bfd8c949e91d20548b.jpg");
   border-radius: 10px;
-  overflow: scroll;
+  // overflow: scroll;
   .container {
     display: flex;
     flex-direction: column;
@@ -27,6 +34,12 @@
           margin: 7px;
           font-size: 20px;
         }
+
+        mat-icon{
+          position: relative;
+          top: 5px;
+          right: 7px;
+        }
       }
       .icon {
         margin-top: 6px;
@@ -37,14 +50,14 @@
     }
     .text {
       position: absolute;
-      top: 97%;
+      top: 95%;
       left: 60%;
       transform: translate(-50%, -50%);
       .textspace {
         display: flex;
         .message {
-          width : 75vw;
-          height: 55px;
+          width: 66vw;
+          height: 40px;
           border: 1px solid white;
           // border-radius: 10px;
         }
@@ -53,26 +66,30 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 50px;
-          width: 50px;
+          height: 40px;
+          width: 40px;
           border-radius: 50%;
           background-color: blue;
           color: white;
-          margin-left: 5px;
           font-size: 31px;
-          margin-top: 5px;
         }
 
-        .send{
+        .send {
           background-color: white;
         }
+        @include placeholder {
+          color: black;
+          font-weight:500;
+          font-size: larger;
       }
-
+      }
     }
-
   }
-  .mess {
 
+  .mess {
+    height: 82%;
+    overflow-y: auto;
+    padding-right: 20px;
     .own-message {
       color: white;
       display: flex;
@@ -101,9 +118,51 @@
         border-radius: 21px;
         margin: 7px 0px 7px 0;
         word-break: break-word;
-
       }
     }
   }
+}
 
+@media only screen and (min-device-width : 600px) and (max-device-width : 2000px) {
+  .main{
+    .container{
+      .list{
+        .details{
+          mat-icon{
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 1050px) {
+  .main{
+    .container{
+      .text{
+        left: 74%;
+        .textspace{
+          .message{
+            width: 31vw;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-device-width : 200px) and (max-device-width : 600px) {
+  .main{
+    position: relative;
+    height: 91vh;
+    bottom: 31px;
+    width: 91vw;
+    .container{
+      .text{
+        left: 52%;
+      }
+    }
+  }
 }

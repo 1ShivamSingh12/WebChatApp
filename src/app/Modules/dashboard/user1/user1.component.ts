@@ -15,17 +15,22 @@ export class User1Component implements OnInit,AfterViewInit {
   @Input() userDetail : any
   @Input() room  :any
   @Output() msg = new EventEmitter<any>()
+  @Output() flag = new EventEmitter<any>()
+  @Output() leave_flag = new EventEmitter<any>()
   @ViewChild('msg')
 
   array = []
 
   inputMessage:any = ''
   my_Detail : any
+  messageReceive : any
 
   constructor(private chatService : ChatServiceService , private snackbar : SnackbarService) { }
   ngAfterViewInit(): void {
 
   }
+
+  group_left : any
 
   ngOnInit(): void {
     this.chatService.sendMessage().subscribe((data)=>{
@@ -45,11 +50,12 @@ export class User1Component implements OnInit,AfterViewInit {
 
     })
 
+
   }
   message(msg:any){
-
     this.inputMessage = this.inputMessage?.trim()
-    if(this.inputMessage?.trim() != undefined && this.inputMessage?.trim() != '' && this.inputMessage.length <= 2000 ){
+    if(this.inputMessage?.trim() != undefined && this.inputMessage?.trim() != ''){
+      this.inputMessage = this.inputMessage.substring(0 , 2000)
       this.chatService.socket.emit('send_message',{
         from: JSON.parse(<any>sessionStorage.getItem('user')).username,
         message : this.inputMessage,
@@ -66,9 +72,17 @@ export class User1Component implements OnInit,AfterViewInit {
     // this.my_Detail = JSON.parse(<any>sessionStorage.getItem('user'))
   }
 
+  leave(){
+    console.log(this.userDetail);
+    console.log(sessionStorage.getItem('user'));
+    // console.log(this.group_left,'jjjj');
 
-  messageReceive : any
+    this.leave_flag.emit('True')
 
+    // this.chatService.leaveGroup({user:JSON.parse(<any>sessionStorage.getItem('user')).username , room:this.userDetail.username})
+  }
 
-
+  toggle(){
+    this.flag.emit('')
+  }
 }

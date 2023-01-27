@@ -1,5 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { FieldErrorComponent } from "./field-error.component";
 
 @NgModule({
@@ -8,9 +11,15 @@ import { FieldErrorComponent } from "./field-error.component";
   ],
   imports: [
     CommonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule
   ],
   exports:[
-    FieldErrorComponent
+    FieldErrorComponent,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule
   ]
 })
 export class FieldErrorModule { }

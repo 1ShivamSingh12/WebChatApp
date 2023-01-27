@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CHAT_USERS_DATA } from 'src/app/constant/user_detail';
+import { GroupDialogComponent } from 'src/app/Dialog/group-dialog/group-dialog.component';
 import { ChatServiceService } from 'src/app/service/chat-service.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 
@@ -20,6 +21,9 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   room:any
   totalusers : any = []
   msgArr :any = []
+  flag = false
+  group_limit : any
+  levae_flag :boolean = true
   loggedIn : any
   constructor(public dialog: MatDialog , private chatservice : ChatServiceService , private snackbarService : SnackbarService) {
     this.chatservice.getOnlineUser().subscribe((data: any) => {
@@ -30,6 +34,8 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     });
 
     this.chatservice.newUserJoined().subscribe((data: any) => {
+      console.log(data , 'new useff trvver');
+
       this.messageArray.push(data);
     });
 
@@ -39,7 +45,8 @@ export class DashboardComponent implements OnInit,AfterViewInit {
       console.log(this.messageArray,'ui');
 
     });
-  }
+
+     }
   ngOnInit(): void {
     this.loggedIn = JSON.parse(<any>sessionStorage.getItem('user'))
     this.chatservice.socket.emit('loggedIn' ,{...this.loggedIn , type:'private'})
@@ -53,18 +60,30 @@ export class DashboardComponent implements OnInit,AfterViewInit {
       this.user =  data
       // localStorage.removeItem(this.loggedIn.username)
     })
-    this.chatservice.socket.on('update_session_storage', async (data: any) => {
 
-      console.log(data);
+    //variable bool by default true...
+    // if click in button leave  false
 
-      if (localStorage.getItem(data.room_id) === null) {
-        localStorage.setItem(data.room_id, JSON.stringify([]));
-      }
-      this.msgArr = await JSON.parse(<any>localStorage.getItem(data.room_id));
-      this.msgArr.push({ from: data.from, message: data.message , });
-      localStorage.setItem(data.room_id, JSON.stringify(this.msgArr));
-      this.chatData = JSON.parse(<any>localStorage.getItem(this.currentRoom));
-    });
+    // if (true){
+    //code .... updata session storage
+    // }
+
+    if(this.levae_flag){
+
+      this.chatservice.socket.on('update_session_storage', async (data: any) => {
+
+        console.log(data);
+
+        if (localStorage.getItem(data.room_id) === null) {
+          localStorage.setItem(data.room_id, JSON.stringify([]));
+        }
+        this.msgArr = await JSON.parse(<any>localStorage.getItem(data.room_id));
+        this.msgArr.push({ from: data.from, message: data.message , });
+        localStorage.setItem(data.room_id, JSON.stringify(this.msgArr));
+        this.chatData = JSON.parse(<any>localStorage.getItem(this.currentRoom));
+      });
+    }
+
 
     this.chatservice.socket.on('room_id', (room_id: any) => {
       if (localStorage.getItem(room_id) === null) {
@@ -73,6 +92,18 @@ export class DashboardComponent implements OnInit,AfterViewInit {
       this.chatData = JSON.parse(<any>localStorage.getItem(room_id));
       this.currentRoom = room_id;
     });
+
+
+    this.chatservice.exist_group().subscribe((res:any)=>{
+      this.snackbarService.openSnackBarErr('Group Exist', 'red-snackbar')
+
+    })
+
+    this.chatservice.userLeft().subscribe((data:any)=>{
+      console.log(data,'userleft ts');
+
+    })
+    // this.dialog.open(GroupDialogComponent)
 
   }
 
@@ -109,32 +140,35 @@ export class DashboardComponent implements OnInit,AfterViewInit {
         this.chatData = JSON.parse(<any>localStorage.getItem(room_id));
         this.currentRoom = room_id;
       });
+
+      this.chatservice.socket.on('maxLimit' , (res:any)=>{
+
+        this.display = false
+        this.snackbarService.openSnackBarErr('Maximum Limit reached' , 'red-snackbar')
+        // console.log(res,'wdjchwhecvwcjvwjcvwejvwvvcjvjejwevhvwehvjhvjhwechvwehvjhwecvjhwevcvuiecuiicevhcv2ui3cbui2bch chcbu2cui32uvui332ui');
+      })
+
     } else {
       console.log(data);
     }
   }
 
-  groupDetail(){
-    if(this.groupDisplay == false){
-      this.groupDisplay = true
-    }else if(this.groupDisplay == true){
-      this.groupDisplay = false
-    }
+  openGroup(){
+    this.dialog.open(GroupDialogComponent)
   }
-  groupName:any
 
-  joinRoom(){
-    let group_Data = {
-      username : this.room,
-      user_id : this.name,
-      type:'group',
-    }
-    if(this.chatservice.details.username == this.name && this.room.trim() != ''){
-      this.chatservice.socket.emit('loggedIn',group_Data)
-    }else if(this.chatservice.details.username != this.name){
-      this.snackbarService.openSnackBarErr('Name should be same as username' , 'red-snackbar')
-    }else if(this.room.trim() == ''){
-      this.snackbarService.openSnackBarErr('Group Name cannot be empty' , 'red-snackbar')
+  showChat(){
+    if(this.flag == false){
+      this.flag = true
+    }else{
+      this.flag = false
     }
   }
+
+  kkk(){
+    this.levae_flag = false
+    console.log(this.levae_flag,'');
+
+  }
+
 }

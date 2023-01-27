@@ -1,0 +1,33 @@
+h1 {
+  text-align: center;
+}
+.mat-dialog-actions {
+  display: block !important;
+}
+
+button {
+  width: 50%;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+.input-box {
+  text-align: center;
+}
+::ng-deep.mat-dialog-container {
+  width: 28rem;
+  height: 14rem;
+}
+
+
+@media only screen and (min-device-width : 562px) and (max-device-width : 2000px) {
+  ::ng-deep .mat-form-field-flex {
+    width: 25rem !important;
+  }
+}
+
+@media only screen and (min-device-width : 200px) and (max-device-width : 562px) {
+  ::ng-deep .mat-form-field-flex {
+    width: 71vw !important;
+  }
+}

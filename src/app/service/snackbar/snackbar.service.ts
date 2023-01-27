@@ -11,7 +11,7 @@ export class SnackbarService {
 
   openSnackBarErr(message: any, theme: string) {
     this.snackbar.open(message, '', {
-      duration: 3000,
+      duration: 1500,
       verticalPosition: 'top',
       panelClass: [theme],
       horizontalPosition: 'center'

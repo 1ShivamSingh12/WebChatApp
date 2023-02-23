@@ -11,13 +11,13 @@ export class ShowErrorPipe implements PipeTransform {
   transform(form: FormGroup, control : string , label : string): any {
 
     // console.log(form , control , label);
-    // console.log(form.get(control)?.touched,form.get(control)?.invalid,"AYU2");
+    console.log(form.get(control)?.touched,form.get(control)?.invalid,"AYU2");
 
     if(form.get(control)?.touched && form.get(control)?.invalid){
-      // console.log('lll');
+      console.log('lll');
 
       const error = form.get(control)?.errors
-      // console.log(error,'errr');
+      console.log(error,'errr');
 
       if(error?.hasOwnProperty("required")){
         return `${label} is required`
